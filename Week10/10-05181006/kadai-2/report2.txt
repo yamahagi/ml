@@ -1,0 +1,47 @@
+05-181006 大萩雅也
+
+mult(X,Y,Z)のうち、YがzならばXが何であってもZはzであるというように定義。
+そしてzでないならば、mult(X,s(Y),Z)のZはXとYをかけたものに対してXを足したものであるためaddとmultを使って定義する。
+基本的にどれを変数にしても問い合わせは可能だが
+mult(z,X,s(z)).や、また、mult(X,Y,s(s(s(Z)))). などはループが無限に続くためout of  stackとなる。
+
+実行例
+?- mult(s(s(z)),s(s(z)),Z).
+Z = s(s(s(s(z)))) ;
+
+?- mult(s(s(z)),z,Z).      
+Z = z 
+
+?- mult(z,s(s(z)),Z).      
+Z = z .
+
+?- mult(s(s(z)),s(s(z)),s(z)).
+false.
+
+?- mult(X,s(s(z)),s(s(s(s(z))))).      
+X = s(s(z)) ;
+
+?- mult(s(z),X,z).            
+X = z ;
+
+
+?- mult(z,X,z).
+X = z ;
+X = s(z) ;
+X = s(s(z)) ;
+X = s(s(s(z))) ;
+X = s(s(s(s(z)))) ;
+X = s(s(s(s(s(z))))) ;
+X = s(s(s(s(s(s(z)))))) ;
+X = s(s(s(s(s(s(s(z))))))) ;
+X = s(s(s(s(s(s(s(s(z)))))))) 
+
+?- mult(z,X,s(z)).
+ERROR: Out of global stack
+?- mult(X,Y,s(z)).
+ERROR: Out of global stack
+?- mult(X,z,s(z)).
+false.
+
+?- mult(X,s(z),z).   
+X = z .

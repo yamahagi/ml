@@ -1,0 +1,47 @@
+05-181006 大萩雅也
+
+共通の祖先を持つだけ（bloodrelative(X,Y) :- ancestor(X,Z),ancestor(Y,Z);）
+だとparent(X,X)をtrueとして登録していないため、ancestor(X,X)もtrueとならず、
+bloodrelative(X,X)がtrueにならないため、例えばbloodrelative(kobo,iwao)などがfalseになってしまう。
+それを防ぐため、直接の祖先であるという関係も入れた。
+
+実行例
+?- bloodrelative(kobo,iwao).
+true ;
+false.
+
+?- bloodrelative(kobo,kobo).
+true ;
+true ;
+true ;
+true ;
+false.
+
+?- bloodrelative(kobo,sanae).
+true .
+
+?- bloodrelative(kobo,koji). 
+true .
+
+?- bloodrelative(kobo,miho). 
+true.
+
+?- bloodrelative(koji,sanae).
+false.
+
+?- bloodrelative(mine,iwao). 
+false.
+
+?- bloodrelative(sanae,koji).
+false.
+
+?- bloodrelative(koji,miho). 
+true .
+
+?- bloodrelative(koji,iwao).
+false.
+
+?- bloodrelative(iwao,koji).
+false.
+
+
