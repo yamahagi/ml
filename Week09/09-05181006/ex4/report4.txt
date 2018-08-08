@@ -1,0 +1,15 @@
+05-181006 大萩雅也
+
+スライドの通り、env内のvalueをthunkに置き換えた。
+また、CRecDeclなど、再帰関数の宣言の際に、その関数をexprとしてthunk内に存在させるため、ELetFunとして、再帰関数を定義するためのexprを追加した。
+
+eval_expr内においては、EVar,ELet,ELetRec,EAppの部分を変更し、ELetFunの部分を追加した。
+ELetFun(f,x,e1,env) を評価すると VRecFun(f,x,e1,env)となる。
+EVar xは、env内でxをlookupするとThunk(e,env')が帰ってくるため、env'の中でeを評価した。
+ELet(e1,e2,e3)においては、今までは先にe2を評価していたのを、e2をthunkとしてクロージャー化して、その上でe2を評価した。
+ELetRec(f,x,e1,e2)は自分自身をELetFunとしてenvと共にThunkにしてenvに追加し、その上でe2を評価した。
+EAppは、e1を先に評価し、e2をthunk化し、VFun,VRecFunそれぞれの場合において環境を拡張してその下でもう一度VFun,VRecFun内のexprを評価した。
+
+eval_command内ではCDeclとCRecDeclに変更を加えたが、その変更はELet、ELetRecの部分とほぼ同じである。
+
+

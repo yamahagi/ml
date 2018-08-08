@@ -1,0 +1,6 @@
+# let rec b a = match a with|[] -> [] |x::xs -> (2*x)::(b xs);;
+b :  = fun
+# let a = 1::2::[];;
+a :  = [1;2]
+# b a;;
+- :  = [2;4]
