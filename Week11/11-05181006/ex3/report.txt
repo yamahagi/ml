@@ -1,0 +1,26 @@
+05-181006 大萩雅也
+
+finishで終了時の盤面を定義し、nextで盤面の変化を定義しました。
+現在何も入っていないところはeで表現しています。
+aiteでプレイヤーp,qを定義し、またプレイヤーが置いた石もそれぞれp,qで表現することを決定しています。
+winはスライド通りに実装し、loseは全称量化子を表現するために一度、否定のwinの存在量化子を持つlose_subを挟みそのlose_subをさらに否定することで実装した。
+
+実行例
+win(p, [p,e,e,q,e,e,e,e,e]).
+true .
+win(p, [e,e,e,q,p,e,e,e,e]).
+true .
+win(p, [e,p,e,q,e,e,e,e,e]).
+true.
+
+lose(p, [p,e,e,q,e,e,e,e,e]).
+false
+
+?- win(p,[q,q,e,p,e,e,e,e,e]).
+false.
+
+?- \+ win(P,[e,e,e,e,e,e,e,e,e]).
+true.
+
+?- \+ lose(P,[e,e,e,e,e,e,e,e,e]).
+true.
